@@ -1,0 +1,12 @@
+
+- @posts.each do |post|
+  .widget
+    .widget-header
+      %h3= post.user.email + ' says'
+    .widget-content
+      %p= post.content.html_safe
+      %p= post.user_id
+      %p= link_to 'Show', post
+      %p= link_to 'Edit', edit_post_path(post)
+      %p= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }
+      

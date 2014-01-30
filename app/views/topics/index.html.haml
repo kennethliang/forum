@@ -1,0 +1,24 @@
+%h1 Listing topics
+
+.widget
+  .widget-header
+    %h3 List of Forums
+  .widget-content
+    %table
+      %tr
+        %th Name
+        %th Last poster
+        %th Last post
+        %th
+        %th
+        %th
+      - @topics.each do |topic|
+        %tr
+          %td= topic.name
+          %td= topic.last_poster_id
+          %td= topic.last_post
+          %td= link_to 'Show', topic
+          %td= link_to 'Edit', edit_topic_path(topic)
+          %td= link_to 'Destroy', topic, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Topic', new_topic_path

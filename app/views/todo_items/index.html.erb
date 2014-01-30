@@ -1,0 +1,25 @@
+<h1>Listing todo_items</h1>
+
+<table id= "todo-list">
+  <tr>
+    <th>Title</th>
+    <th>Completed</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  
+<% @todo_items.each do |todo_item| %>
+
+ <%= render partial: 'todo_item', locals: {todo_item: todo_item} %>
+
+<% end %>
+
+<%= form_for TodoItem.new, :method => :post, :remote => true do
+   |f| %>
+         <%= f.text_field :title, id:'new-todo', placeholder: 'What needs to be done?' %>
+       <% end %>
+</table>
+
+<br />
+

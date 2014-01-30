@@ -1,0 +1,21 @@
+%h1 Forums
+.widget
+  .widget-header
+    %h3 List of Forums
+  .widget-content
+    %table
+      %tr
+        %th
+        %th
+        %th
+      - @forums.each do |forum|
+        %tr
+          %td= link_to forum.name , forum
+          - if user_signed_in?
+            - if (current_user.admin_flag == true)
+              %td= link_to 'Edit', edit_forum_path(forum)
+              %td= link_to 'Destroy', forum, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+- if user_signed_in?
+  - if (current_user.admin_flag == true)
+    = link_to 'New Forum', new_forum_path

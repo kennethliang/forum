@@ -1,0 +1,25 @@
+%p#notice= notice
+
+.widget
+  .widget-header
+    %h3 Forum name: #{@forum.name}
+  .widget-content
+    %table
+      %tr
+        %th List of Topics
+        %th
+      - @topics.each do |topic|
+        %tr
+          %td= link_to topic.name, topic_path(topic)
+          - if user_signed_in?
+            - if (current_user.admin_flag == true)
+              %td= link_to 'Edit', edit_topic_path(topic)
+              %td= link_to 'Destroy', topic, method: :delete, data: { confirm: 'Are you sure?' }
+    - if user_signed_in?
+      - if (current_user.admin_flag == true)  
+        = link_to 'Add Topic', new_topic_path(:forum_id => @forum.id )
+        = link_to 'Edit', edit_forum_path(@forum)
+
+%br/
+%br/
+= link_to 'Back', forums_path
