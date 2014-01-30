@@ -1,5 +1,27 @@
 Blog::Application.routes.draw do
 
+  
+  #resources :comments
+
+
+  resources :posts
+
+
+  resources :topics
+
+
+  resources :forums
+
+
+  resources :todo_items
+
+
+  resources :tasks
+
+
+  devise_for :users
+  
+
   resources :posts do
     resources :comments, :only => [:create]
   end
@@ -55,6 +77,8 @@ Blog::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
+  
+  root :to => 'forums#index'
 
   # See how all your routes lay out with "rake routes"
 

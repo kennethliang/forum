@@ -1,6 +1,5 @@
 class Post < ActiveRecord::Base
-  attr_accessible :body, :title
-  has_many :comments
-  validates_presence_of :body, :title
-
+  attr_accessible :content, :user_id, :topic_id, :view_count,:title
+  belongs_to :topic  
+  belongs_to :user    
 end

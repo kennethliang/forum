@@ -1,13 +1,23 @@
 source 'https://rubygems.org'
+gem 'sass-rails', '~> 3.2.3'
+gem 'bootstrap-sass', '~> 3.0.2.0'
+
 
 gem 'rails', '3.2.14'
+gem 'devise'
+gem 'formtastic'
+gem "haml-rails"
+gem 'formtastic-bootstrap'
+gem 'tinymce-rails'
+gem 'compass'
+gem 'haml-rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-
-
+gem 'jquery-rails'
+gem 'tinymce-rails'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -19,8 +29,6 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 end
-
-gem 'jquery-rails'
 
 group :development, :test do
   gem 'rspec-rails'

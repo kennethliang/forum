@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-  before_filter :authenticate, :except => [ :index, :show ]
   # GET /posts
   # GET /posts.json
   def index
@@ -15,7 +14,6 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     @post = Post.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @post }
@@ -25,8 +23,9 @@ class PostsController < ApplicationController
   # GET /posts/new
   # GET /posts/new.json
   def new
+    @topic = Topic.find(params[:topic_id])
     @post = Post.new
-
+      
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @post }
@@ -36,21 +35,20 @@ class PostsController < ApplicationController
   # GET /posts/1/edit
   def edit
     @post = Post.find(params[:id])
+    @topic = Topic.find(@post.topic_id)
   end
 
   # POST /posts
   # POST /posts.json
   def create
+    params[:post][:user_id] = current_user.id
     @post = Post.new(params[:post])
 
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
-        format.json { render json: @post, status: :created, location: @post }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+    if @post.save
+      topic = Topic.find(@post.topic_id)
+      redirect_to topic, notice: 'Post was successfully created.' 
+    else
+      render action: "new"
     end
   end
 
@@ -58,15 +56,13 @@ class PostsController < ApplicationController
   # PUT /posts/1.json
   def update
     @post = Post.find(params[:id])
-
-    respond_to do |format|
-      if @post.update_attributes(params[:post])
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+    
+    if @post.update_attributes(params[:post])
+      topic = Topic.find(@post.topic_id);
+      redirect_to topic
+      
+    else
+      render action: "edit"
     end
   end
 
@@ -74,17 +70,8 @@ class PostsController < ApplicationController
   # DELETE /posts/1.json
   def destroy
     @post = Post.find(params[:id])
+    topic = Topic.find(@post.topic_id)
     @post.destroy
-
-    respond_to do |format|
-      format.html { redirect_to posts_url }
-      format.json { head :no_content }
-    end
-  end
-    private
-  def authenticate
-    authenticate_or_request_with_http_basic do |name, password|
-      name == "admin" && password == "secret"
-    end
+    redirect_to topic
   end
 end

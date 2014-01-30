@@ -1,0 +1,7 @@
+= semantic_form_for @post do |f|
+  = f.input :title
+  = f.input :content, :input_html => { :class => :tinymce, :rows =>8, :cols => 8 }
+  = f.hidden_field :topic_id, :value => @topic.id
+  = f.action :submit, :as => :button
+
+
