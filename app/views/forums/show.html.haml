@@ -10,7 +10,7 @@
         %th
       - @topics.each do |topic|
         %tr
-          %td= link_to topic.name, topic_path(topic)
+          %td= link_to topic.title, topic_path(topic)
           - if user_signed_in?
             - if (current_user.admin_flag == true)
               %td= link_to 'Edit', edit_topic_path(topic)
