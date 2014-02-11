@@ -28,6 +28,7 @@ class TopicsController < ApplicationController
     @forum_id = params[:forum_id];
     @forum = Forum.find(@forum_id) if (params[:forum_id])
     @topic = Topic.new
+    @user_id = current_user.id;
  
     respond_to do |format|
       format.html # new.html.erb
@@ -39,6 +40,7 @@ class TopicsController < ApplicationController
   def edit
     @topic = Topic.find(params[:id])
     @forum_id = @topic.forum_id;
+    @user_id = current_user.id;
   end
 
   # POST /topics

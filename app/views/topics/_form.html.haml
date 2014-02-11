@@ -2,6 +2,7 @@
   = f.input :title
   = f.input :body, :input_html => { :class => :tinymce, :rows =>8, :cols => 8 }
   = f.hidden_field :forum_id, :value => @forum_id
+  = f.hidden_field :user_id, :value => @user_id
   = f.action :submit, :as => :button
 
 

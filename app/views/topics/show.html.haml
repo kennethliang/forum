@@ -4,29 +4,33 @@
 %table.table.table-bordered
   %tr
     %td.post_author{rowspan: "3"}
-      %p User
+      %p
+        %b
+          = @topic.user.nick_name
       %img{src: "/images/profile.jpg"}/
     
   %tr
-    %td.post_header hdfhdhdfhfdhfdh
-  %tr
-    %td hffgjfggfjjgf
+    %td.post_header Posted At #{@topic.created_at} 
+  %tr    
+    %td= @topic.body.html_safe
 - @posts.each do |post|
   %table.table.table-bordered
     %tr
       %td.post_author{rowspan: "3"}
-        %p User
+        %p
+          %b
+            = post.user.nick_name
         %img{src: "/images/profile.jpg"}/
     %tr          
-      %td.post_header im title      
+      %td.post_header 
+        Posted At #{post.created_at}  
+        - if user_signed_in?
+          - if (current_user.admin_flag == true)
+            -#= link_to 'Edit', edit_post_path(post)
+            = link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }    
     %tr          
       %td=  post.content.html_safe
-    %tr
-      %td
-      - if user_signed_in?
-        - if (current_user.admin_flag == true)
-          %td= link_to 'Edit', edit_post_path(post)
-          %td= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }
+
 - if user_signed_in?
   - if (current_user.admin_flag == true)  
     = link_to 'Add Post', new_post_path(:topic_id => @topic.id )     
