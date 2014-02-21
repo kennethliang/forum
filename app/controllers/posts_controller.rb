@@ -1,6 +1,20 @@
 class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
+  
+  def vote_post
+    post_id = params[:post_id];
+    vote_id = params[:vote_id];
+    topic_id = params[:topic_id];
+    user_id = current_user.id;
+    if (post_id && vote_id)
+      UserPostVote.user_vote(user_id,post_id,vote_id)
+      # back to topic page
+      redirect_to topic_path(:id => topic_id), :notice => 'Voted Successfully';      
+      
+      
+    end
+  end
   def index
     @posts = Post.all
 
@@ -46,7 +60,6 @@ class PostsController < ApplicationController
 
     if @post.save
       topic = Topic.find(@post.topic_id)
-      redirect_to topic, notice: 'Post was successfully created.' 
     else
       render action: "new"
     end

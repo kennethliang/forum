@@ -10,7 +10,9 @@
       %img{src: "/images/profile.jpg"}/
     
   %tr
-    %td.post_header Posted At #{@topic.created_at} 
+    %td.post_header
+      Posted At #{@topic.created_at.localtime.strftime('%d/%m/%Y %H:%M') } 
+       
   %tr    
     %td= @topic.body.html_safe
 - @posts.each do |post|
@@ -23,11 +25,14 @@
         %img{src: "/images/profile.jpg"}/
     %tr          
       %td.post_header 
-        Posted At #{post.created_at}  
+        Posted At #{post.created_at.localtime.strftime('%d/%m/%Y %H:%M') }  
         - if user_signed_in?
           - if (current_user.admin_flag == true)
             -#= link_to 'Edit', edit_post_path(post)
-            = link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }    
+            = link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }
+            = link_to 'Agree', post_vote_path(:post_id => post.id, :vote_id => 1, :topic_id => @topic.id)
+            = link_to "Don't Know", post_vote_path(:post_id => post.id, :vote_id => 2, :topic_id => @topic.id )
+            = link_to "Disagree", post_vote_path( :post_id => post.id, :vote_id => 3, :topic_id => @topic.id )         
     %tr          
       %td=  post.content.html_safe
 

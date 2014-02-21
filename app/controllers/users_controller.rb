@@ -8,4 +8,16 @@ class UsersController < ApplicationController
     end
   end
    
+  def new
+     @user = User.new
+  end
+
+
+  def create
+    1/0
+    raise parmas[:user].inspect;
+    
+    @user = User.new(params[:user])
+  end
+    
 end

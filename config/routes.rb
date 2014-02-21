@@ -3,7 +3,9 @@ Blog::Application.routes.draw do
   
   #resources :comments
 
-
+  match  'posts/vote_post' => 'posts#vote_post', :as => :post_vote
+  
+  
   resources :posts
 
 
