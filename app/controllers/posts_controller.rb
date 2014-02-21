@@ -4,11 +4,11 @@ class PostsController < ApplicationController
   
   def vote_post
     post_id = params[:post_id];
-    vote_id = params[:vote_id];
+    agree_value = params[:agree];
     topic_id = params[:topic_id];
     user_id = current_user.id;
-    if (post_id && vote_id)
-      UserPostVote.user_vote(user_id,post_id,vote_id)
+    if (post_id && agree_value)
+      UserPostVote.user_vote(user_id,post_id,agree_value)
       # back to topic page
       redirect_to topic_path(:id => topic_id), :notice => 'Voted Successfully';      
       
@@ -59,7 +59,7 @@ class PostsController < ApplicationController
     @post = Post.new(params[:post])
 
     if @post.save
-      topic = Topic.find(@post.topic_id)
+      redirect_to topic_path(:id => @post.topic_id )
     else
       render action: "new"
     end

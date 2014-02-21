@@ -3,12 +3,18 @@ class UserPostVote < ActiveRecord::Base
   belongs_to :user 
   belongs_to :post 
   
-  def self.user_vote(user_id, post_id,vote_id)    
+  
+  
+  def self.check_if_user_voted(user_id,post_id)
+  return UserPostVote.where(:user_id => user_id, :post_id => post_id).first  ? true:false
+  end
+  
+  def self.user_vote(user_id, post_id,agree_value)    
     user_post_vote = nil;
     user_post_vote = UserPostVote.where(:user_id => user_id, :post_id => post_id).first 
     if (user_post_vote)
       #if exist then update
-      user_post_vote.update_attributes(:post_id => post_id, :user_id => user_id, :agree => true)
+      user_post_vote.update_attributes(:post_id => post_id, :user_id => user_id, :agree => agree_value)
     else
      # if doesn't exist then create
     user_post_view = UserPostVote.new();
