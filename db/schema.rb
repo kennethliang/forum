@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140211181132) do
+ActiveRecord::Schema.define(:version => 20140220214850) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"

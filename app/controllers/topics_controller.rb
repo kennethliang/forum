@@ -1,6 +1,10 @@
 class TopicsController < ApplicationController
   # GET /topics
   # GET /topics.json
+  def total_count(vote,post_id)
+   return UserPostVote.total_count(vote,post_id)
+  end
+  helper_method :total_count  
   def index
     @topics = Topic.all
 

@@ -14,10 +14,14 @@ class UsersController < ApplicationController
 
 
   def create
-    1/0
-    raise parmas[:user].inspect;
-    
+    #raise params[:user].inspect;
     @user = User.new(params[:user])
+    if @user.save
+      redirect_to @user, notice: 'User was successfully created.'
+    else
+      render action: "new", error: 'User was not successfully created.'
+    end
+   
   end
     
 end

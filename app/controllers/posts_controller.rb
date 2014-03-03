@@ -7,7 +7,7 @@ class PostsController < ApplicationController
     agree_value = params[:agree];
     topic_id = params[:topic_id];
     user_id = current_user.id;
-    if (post_id && agree_value)
+    if (post_id)
       UserPostVote.user_vote(user_id,post_id,agree_value)
       # back to topic page
       redirect_to topic_path(:id => topic_id), :notice => 'Voted Successfully';      

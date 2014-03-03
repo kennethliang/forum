@@ -22,7 +22,7 @@ Blog::Application.routes.draw do
 
 
   devise_for :users
-  
+  match  'users/create' => 'users#create', :as => :user_create
   resources :users
   
   resources :posts do
