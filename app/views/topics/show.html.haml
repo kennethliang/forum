@@ -39,14 +39,11 @@
         %span.glyphicon.glyphicon.glyphicon-ban-circle #{total_count(2,post.id)}
         %span.glyphicon.glyphicon.glyphicon-thumbs-down #{total_count(1,post.id)}
         - if user_signed_in?
-          - if (current_user.admin_flag == true)
-            -#= link_to 'Edit', edit_post_path(post)
-            - if (UserPostVote.check_if_user_voted(current_user.id,post.id) == false)
-              = link_to 'Agree', post_vote_path(:post_id => post.id, :agree => true, :topic_id => @topic.id),:class => "btn btn-default glyphicon glyphicon-thumbs-up" 
-              = link_to "Unsure", post_vote_path(:post_id => post.id, :agree => nil, :topic_id => @topic.id ),:class => "btn btn-default  glyphicon glyphicon-ban-circle"
-              = link_to "Disagree", post_vote_path( :post_id => post.id, :agree => false, :topic_id => @topic.id ),:class => "btn btn-default glyphicon glyphicon-thumbs-down"
-- if user_signed_in?
-  - if (current_user.admin_flag == true)  
-    = link_to 'Add Post', new_post_path(:topic_id => @topic.id )     
+          - if (UserPostVote.check_if_user_voted(current_user.id,post.id) == false)
+            = link_to 'Agree', post_vote_path(:post_id => post.id, :agree => true, :topic_id => @topic.id),:class => "btn btn-default glyphicon glyphicon-thumbs-up" 
+            = link_to "Unsure", post_vote_path(:post_id => post.id, :agree => nil, :topic_id => @topic.id ),:class => "btn btn-default  glyphicon glyphicon-ban-circle"
+            = link_to "Disagree", post_vote_path( :post_id => post.id, :agree => false, :topic_id => @topic.id ),:class => "btn btn-default glyphicon glyphicon-thumbs-down"
+- if user_signed_in?  
+  = link_to 'Add Post', new_post_path(:topic_id => @topic.id )     
 = link_to 'Back', @forum
 

@@ -22,6 +22,8 @@ Blog::Application.routes.draw do
 
 
   devise_for :users
+  
+  match 'users/sign_up' => redirect('/404.html')
   match  'users/create' => 'users#create', :as => :user_create
   resources :users
   
